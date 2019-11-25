@@ -1,0 +1,17 @@
+{
+  "name": "@mikejancar/tv-me-core",
+  "version": "1.0.0",
+  "description": "Shared functionality for the TV Me service",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha 'tests/*.test.js'"
+  },
+  "author": "Mike Jancar",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.2"
+  }
+}
