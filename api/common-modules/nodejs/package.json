@@ -1,0 +1,21 @@
+{
+  "name": "tv-me-common-modules",
+  "version": "1.0.0",
+  "description": "Common node modules used by the TV Me API",
+  "main": "index.js",
+  "scripts": {
+    "clean": "7z d ..\\common-modules.zip *",
+    "deploy": "npm run clean & npm run zip & npm run publish",
+    "publish": "aws2 lambda publish-layer-version --layer-name tv-me-common-modules --zip-file fileb://../common-modules.zip --compatible-runtimes nodejs12.x",
+    "zip": "7z a ..\\common-modules.zip ..\\nodejs\\"
+  },
+  "author": "Mike Jancar",
+  "license": "ISC",
+  "dependencies": {
+    "@mikejancar/tv-me-core": "^1.0.0",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.2"
+  }
+}
