@@ -8,7 +8,7 @@ describe('TV Me API - Series Resource - Unit Tests', function () {
     it('should return a success status and a token when the call succeeds', async function () {
       const response = await series.handler(events.getQuery);
       console.log(response);
-      assert.equal(response.status, 200);
+      assert.equal(response.statusCode, 200);
       assert.ok(response.body);
     });
   });

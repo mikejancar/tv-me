@@ -4,7 +4,7 @@
   "description": "API handler for series requests to the TV Me API",
   "main": "index.js",
   "scripts": {
-    "clean": "7z d ..\\tv-me-api-series.zip *",
+    "clean": "7z d tv-me-api-series.zip *",
     "deploy": "npm run clean & npm run zip & npm run publish",
     "publish": "aws2 lambda update-function-code --function-name tv-me-api-series --zip-file fileb://tv-me-api-series.zip",
     "test": "mocha 'tests/*.test.js'",

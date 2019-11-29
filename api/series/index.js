@@ -4,44 +4,57 @@ const keys = require('./keys.json');
 
 exports.handler = async (event) => {
 
+  let response = {};
+
   switch (event.httpMethod) {
     case 'GET':
-      return await searchForSeries(event.queryStringParameters);
+      response = await searchForSeries(event.queryStringParameters);
+      break;
     default:
-      return {
-        status: 400,
-        body: 'Bad Request'
+      response = {
+        'statusCode': 400,
+        'body': 'Bad Request'
       };
   }
+  return {
+    ...response,
+    'isBase64Encoded': false
+  };
 
   async function getToken() {
     const tokenResponse = await core.getToken(keys.tvdb.apikey, keys.tvdb.username, keys.tvdb.userkey);
     return {
-      status: tokenResponse.status,
-      body: tokenResponse.status === 200 ? tokenResponse.token : ''
+      'statusCode': tokenResponse.status,
+      'body': tokenResponse.status === 200 ? tokenResponse.token : ''
     };
   }
 
   async function searchForSeries(params) {
     const tokenResponse = await getToken();
-    if (tokenResponse.status !== 200) {
-      return tokenResponse;
+    if (tokenResponse.statusCode !== 200) {
+      return {
+        'statusCode': 500,
+        'body': 'Token acquisition failed'
+      };
     }
 
     const options = {
       method: 'GET',
-      headers: { Authorization: `Bearer ${tokenResponse.token}` }
+      headers: { Authorization: `Bearer ${tokenResponse.body}` }
     };
     let searchParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
 
     const searchResponse = await fetch(`https://api.thetvdb.com/search/series?${searchParams}`, options);
     if (searchResponse.status !== 200) {
-      return searchResponse;
+      return {
+        'statusCode': 500,
+        'body': 'Series search failed'
+      };
     }
     const rawJson = await searchResponse.json();
     return {
-      status: 200,
-      body: rawJson.data
+      'statusCode': 200,
+      'body': `${JSON.stringify(rawJson.data)}`
     };
   }
 };
