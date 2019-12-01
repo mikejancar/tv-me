@@ -1,16 +1,18 @@
 @import '../../../assets/styles/main-theme.scss';
 
 #searchForm {
-  background-color: mat-color($main-app-accent, lighter);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;
-  width: 600px;
+  flex-wrap: wrap;
+  height: 125px;
+  width: 90%;
+  max-width: 600px;
+  padding: 10px;
 }
 
 #searchForm > mat-form-field {
-  width: 75%;
+  flex-grow: 2;
 }
 
 #searchForm button {
