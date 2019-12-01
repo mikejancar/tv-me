@@ -18,7 +18,10 @@ exports.handler = async (event) => {
   }
   return {
     ...response,
-    'isBase64Encoded': false
+    'isBase64Encoded': false,
+    'headers': {
+      'Access-Control-Allow-Origin': '*'
+    }
   };
 
   async function getToken() {
