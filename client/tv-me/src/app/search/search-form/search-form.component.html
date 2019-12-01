@@ -1,0 +1,7 @@
+<form id="searchForm" (ngSubmit)="searchSeries()">
+  <mat-form-field>
+    <input matInput type="search" [(ngModel)]="searchQuery" name="searchQuery" autofocus
+      placeholder="Enter a streaming series you'd like more info on">
+  </mat-form-field>
+  <button mat-raised-button type="submit" color="primary">Search</button>
+</form>

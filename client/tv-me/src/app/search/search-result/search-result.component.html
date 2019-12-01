@@ -1,0 +1,7 @@
+<div class="searchResults">
+  <mat-card *ngFor="let result of searchResult">
+    <mat-card-title>{{result.seriesName}}</mat-card-title>
+    <mat-card-subtitle>{{result.network}}</mat-card-subtitle>
+    <mat-card-content>{{result.overview}}</mat-card-content>
+  </mat-card>
+</div>
