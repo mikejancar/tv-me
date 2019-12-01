@@ -6,6 +6,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "deploy": "npm run build & npm run publish",
+    "publish": "aws2 s3 sync ./dist/tv-me/ s3://tvme.mikejancar.com --delete",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
