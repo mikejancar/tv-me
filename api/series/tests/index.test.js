@@ -5,9 +5,14 @@ const series = require('../index');
 
 describe('TV Me API - Series Resource - Unit Tests', function () {
   describe('handler', function () {
-    it('should return a success status and a token when the call succeeds', async function () {
+    it('should return a successful response when called with a valid name querystring param', async function () {
       const response = await series.handler(events.getQuery);
-      console.log(response);
+      assert.equal(response.statusCode, 200);
+      assert.ok(response.body);
+    });
+
+    it('should return a successful response when called with a valid series id path param', async function () {
+      const response = await series.handler(events.getId);
       assert.equal(response.statusCode, 200);
       assert.ok(response.body);
     });

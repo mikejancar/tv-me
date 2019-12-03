@@ -8,7 +8,7 @@ exports.handler = async (event) => {
 
   switch (event.httpMethod) {
     case 'GET':
-      response = await searchForSeries(event.queryStringParameters);
+      response = await searchForSeries();
       break;
     default:
       response = {
@@ -32,7 +32,7 @@ exports.handler = async (event) => {
     };
   }
 
-  async function searchForSeries(params) {
+  async function searchForSeries() {
     const tokenResponse = await getToken();
     if (tokenResponse.statusCode !== 200) {
       return {
@@ -45,9 +45,21 @@ exports.handler = async (event) => {
       method: 'GET',
       headers: { Authorization: `Bearer ${tokenResponse.body}` }
     };
-    let searchParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
 
-    const searchResponse = await fetch(`https://api.thetvdb.com/search/series?${searchParams}`, options);
+    let searchResponse;
+
+    if (event.pathParameters) {
+      searchResponse = await fetch(`https://api.thetvdb.com/series/${event.pathParameters.id}`, options);
+    } else if (event.queryStringParameters) {
+      let searchParams = Object.keys(event.queryStringParameters).map(key => `${key}=${event.queryStringParameters[key]}`).join('&');
+      searchResponse = await fetch(`https://api.thetvdb.com/search/series?${searchParams}`, options);
+    } else {
+      return {
+        'statusCode': 400,
+        'body': 'Request type unrecognized'
+      };
+    }
+
     if (searchResponse.status !== 200) {
       return {
         'statusCode': 500,
