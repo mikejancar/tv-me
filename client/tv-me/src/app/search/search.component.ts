@@ -1,8 +1,7 @@
+import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { Component } from '@angular/core';
-
-import { SearchResult } from '../models/search-result.interface';
+import { SearchResult } from '@tvme/models';
 
 @Component({
   selector: 'tvme-search',

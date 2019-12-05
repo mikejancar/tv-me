@@ -1,9 +1,9 @@
-import { of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { SearchResult } from 'src/app/models/search-result.interface';
-
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
+import { SearchResult } from '@tvme/models';
 
 import { SearchService } from '../search.service';
 

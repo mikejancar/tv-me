@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  tvmeApiUrl: 'https://api.mikejancar.com/tvme'
 };

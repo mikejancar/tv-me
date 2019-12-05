@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
 
 @NgModule({
@@ -12,7 +13,8 @@ import { SearchComponent } from './search.component';
   imports: [
     CommonModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    SearchRoutingModule
   ],
   exports: [SearchComponent]
 })

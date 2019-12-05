@@ -1,6 +1,7 @@
-import { SearchResult } from 'src/app/models/search-result.interface';
-
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { SearchResult } from '@tvme/models';
 
 @Component({
   selector: 'tvme-search-result',
@@ -9,4 +10,6 @@ import { Component, Input } from '@angular/core';
 })
 export class SearchResultComponent {
   @Input() searchResult: SearchResult[] = [];
+
+  constructor(public router: Router) { }
 }

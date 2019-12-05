@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@tvme-env/environment';
-import { SearchResult } from '@tvme/models';
+import { SeriesDetail } from '@tvme/models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SearchService {
+export class SeriesService {
   constructor(private http: HttpClient) { }
 
-  searchForSeries(name: string): Observable<SearchResult[]> {
-    return this.http.get<SearchResult[]>(`${environment.tvmeApiUrl}/series?name=${name}`);
+  getSeriesDetail(id: string): Observable<SeriesDetail> {
+    return this.http.get<SeriesDetail>(`${environment.tvmeApiUrl}/series/${id}`);
   }
 }
