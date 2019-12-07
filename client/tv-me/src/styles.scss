@@ -1,0 +1,16 @@
+@import '~@angular/material/theming';
+@import 'assets/styles/main-theme.scss';
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.pc {
+  color: mat-color($main-app-primary);
+}
