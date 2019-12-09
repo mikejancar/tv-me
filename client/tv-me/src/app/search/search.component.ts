@@ -5,8 +5,7 @@ import { SearchResult } from '@tvme/models';
 
 @Component({
   selector: 'tvme-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  templateUrl: './search.component.html'
 })
 export class SearchComponent {
   searchResults$: BehaviorSubject<SearchResult[]> = new BehaviorSubject<SearchResult[]>([]);

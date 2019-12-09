@@ -1,4 +1,4 @@
-<div id="search">
-  <tvme-search-form (searchComplete)="onSearchComplete($event)"></tvme-search-form>
-  <tvme-search-result [searchResult]="searchResults$ | async"></tvme-search-result>
+<div class="flex flex-column items-center">
+  <tvme-search-form class="w-100" (searchComplete)="onSearchComplete($event)"></tvme-search-form>
+  <tvme-search-result class="w-100 mt4" [searchResult]="searchResults$ | async"></tvme-search-result>
 </div>

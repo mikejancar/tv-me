@@ -9,8 +9,7 @@ import { SearchService } from '../search.service';
 
 @Component({
   selector: 'tvme-search-form',
-  templateUrl: './search-form.component.html',
-  styleUrls: ['./search-form.component.scss']
+  templateUrl: './search-form.component.html'
 })
 export class SearchFormComponent {
   @Output() searchComplete: EventEmitter<SearchResult[]> = new EventEmitter<SearchResult[]>();

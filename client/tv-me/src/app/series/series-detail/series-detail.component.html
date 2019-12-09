@@ -1,3 +1,19 @@
-<div *ngIf="series$ | async as series">
-  <h1>series.seriesName</h1>
+<div *ngIf="series$ | async as series" class="flex flex-column flex-row-l w-90 center mt4-l">
+  <div class="mb4 pr4-l">
+    <h1>{{series.seriesName}}</h1>
+    <div>
+      <h4>{{series.network}}</h4>
+      <h5>
+        {{series.airsDayOfWeek}} {{series.airsTime}}
+      </h5>
+    </div>
+    <h5 *ngIf="nextEpisode$ | async as nextEpisode">
+      Next episode: {{nextEpisode.firstAired | date}} - S{{nextEpisode.airedSeason}}:E{{nextEpisode.airedEpisodeNumber}}
+      {{nextEpisode.episodeName}}
+    </h5>
+    <div>{{series.overview}}</div>
+  </div>
+  <div>
+    <img [src]="imageRoot + series.poster" alt="{{series.seriesName}} poster">
+  </div>
 </div>

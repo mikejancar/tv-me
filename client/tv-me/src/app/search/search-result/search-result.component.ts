@@ -5,8 +5,7 @@ import { SearchResult } from '@tvme/models';
 
 @Component({
   selector: 'tvme-search-result',
-  templateUrl: './search-result.component.html',
-  styleUrls: ['./search-result.component.scss']
+  templateUrl: './search-result.component.html'
 })
 export class SearchResultComponent {
   @Input() searchResult: SearchResult[] = [];

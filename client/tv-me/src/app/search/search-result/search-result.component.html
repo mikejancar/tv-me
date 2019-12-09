@@ -1,5 +1,5 @@
-<div class="searchResults">
-  <mat-card *ngFor="let result of searchResult">
+<div class="flex flex-column items-center">
+  <mat-card class="w-80 w-60-l mb2" *ngFor="let result of searchResult">
     <mat-card-title>{{result.seriesName}}</mat-card-title>
     <mat-card-subtitle>{{result.network}}</mat-card-subtitle>
     <mat-card-content>{{result.overview}}</mat-card-content>
