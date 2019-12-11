@@ -8,6 +8,7 @@ import { SearchResult } from '@tvme/models';
   templateUrl: './search-result.component.html'
 })
 export class SearchResultComponent {
+  @Input() searchInProgress = false;
   @Input() searchResult: SearchResult[] = [];
 
   constructor(public router: Router) { }

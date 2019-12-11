@@ -1,4 +1,7 @@
 <div class="flex flex-column items-center">
-  <tvme-search-form class="w-100" (searchComplete)="onSearchComplete($event)"></tvme-search-form>
-  <tvme-search-result class="w-100 mt4" [searchResult]="searchResults$ | async"></tvme-search-result>
+  <tvme-search-form class="w-100" (searchInProgress)="onSearchStatusChange($event)"
+    (searchComplete)="onSearchComplete($event)"></tvme-search-form>
+  <tvme-search-result class="w-100 mt4" [searchInProgress]="searchInProgress$ | async"
+    [searchResult]="searchResults$ | async">
+  </tvme-search-result>
 </div>
