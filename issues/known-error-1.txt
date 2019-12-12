@@ -1,0 +1,14 @@
+error:
+error: SyntaxError: Unexpected token N in JSON at position 0 at JSON.parse (<anonymous>) at XMLHttpRequest.onLoad (http://localhost:4200/vendor.js:36098:51) at ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:3626:31) at Object.onInvokeTask (http://localhost:4200/vendor.js:99246:33) at ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:3625:60) at Zone.runTask (http://localhost:4200/polyfills.js:3403:47) at ZoneTask.invokeTask [as invoke] (http://localhost:4200/polyfills.js:3700:34) at invokeTask (http://localhost:4200/polyfills.js:4838:14) at XMLHttpRequest.globalZoneAwareCallback (http://localhost:4200/polyfills.js:4875:21)
+message: "Unexpected token N in JSON at position 0"
+stack: "SyntaxError: Unexpected token N in JSON at position 0↵    at JSON.parse (<anonymous>)↵    at XMLHttpRequest.onLoad (http://localhost:4200/vendor.js:36098:51)↵    at ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:3626:31)↵    at Object.onInvokeTask (http://localhost:4200/vendor.js:99246:33)↵    at ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:3625:60)↵    at Zone.runTask (http://localhost:4200/polyfills.js:3403:47)↵    at ZoneTask.invokeTask [as invoke] (http://localhost:4200/polyfills.js:3700:34)↵    at invokeTask (http://localhost:4200/polyfills.js:4838:14)↵    at XMLHttpRequest.globalZoneAwareCallback (http://localhost:4200/polyfills.js:4875:21)"
+__proto__: Error
+text: "No upcoming episodes found for Curb Your Enthusiasm"
+__proto__: Object
+headers: HttpHeaders {normalizedNames: Map(0), lazyUpdate: null, lazyInit: ƒ}
+message: "Http failure during parsing for https://apidev.mikejancar.com/tvme/series/76203/episodes/next"
+name: "HttpErrorResponse"
+ok: false
+status: 200
+statusText: "OK"
+url: "https://apidev.mikejancar.com/tvme/series/76203/episodes/next"

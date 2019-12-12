@@ -4,6 +4,10 @@
     <div class="di pt2 f2 fw4 pc">TV Me</div>
   </div>
   <div class="flex justify-end pr4">
-    <mat-icon class="f2 pt2-5" color="primary">account_circle</mat-icon>
+    <mat-icon class="f2 pt2-5 pointer" color="primary" [matMenuTriggerFor]="userMenu">account_circle</mat-icon>
+    <mat-menu #userMenu="matMenu" xPosition="before">
+      <button *ngIf="!(userService.isRegistered$ | async)" mat-menu-item
+        (click)="router.navigate(['user', 'register'])">Register</button>
+    </mat-menu>
   </div>
 </header>
