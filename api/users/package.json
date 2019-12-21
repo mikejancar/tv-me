@@ -1,0 +1,15 @@
+{
+  "name": "tv-me-api-users",
+  "version": "1.0.0",
+  "description": "API handler for users requests to the TV Me API",
+  "main": "index.js",
+  "scripts": {
+    "clean": "7z d tv-me-api-users.zip *",
+    "deploy": "npm run clean & npm run zip & npm run publish",
+    "publish": "aws2 lambda update-function-code --function-name tv-me-api-users --zip-file fileb://tv-me-api-users.zip",
+    "test": "mocha 'tests/*.test.js'",
+    "zip": "7z a tv-me-api-users.zip ./*.js*"
+  },
+  "author": "Mike Jancar",
+  "license": "ISC"
+}

@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@mikejancar/tv-me-core": "^1.0.0",
+    "aws-sdk": "^2.590.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
