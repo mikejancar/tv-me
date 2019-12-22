@@ -28,6 +28,14 @@
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "chrome",
+      "request": "attach",
+      "name": "Attach to client",
+      "port": 9222,
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}/client/tv-me"
     }
   ]
 }

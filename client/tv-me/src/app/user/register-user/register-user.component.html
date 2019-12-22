@@ -1,6 +1,26 @@
 <div class="ml3 ml4-l pt2 pt3-l">
   <div class="mat-h1">Let's Get Registered</div>
-  <form>
-
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="w-90">
+      <input matInput formControlName="username" placeholder="Enter your email address">
+      <mat-error *ngIf="username.errors && username.errors['required']">Email address is required</mat-error>
+      <mat-error *ngIf="username.errors && username.errors['email']">Please enter a valid email address</mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-90">
+      <input type="password" matInput formControlName="password" placeholder="Enter a password">
+      <mat-error *ngIf="password.errors && password.errors['required']">Password is required</mat-error>
+      <mat-error *ngIf="password.errors && password.errors['minlength']">Your password must be at least 8 characters
+        long</mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-90">
+      <input type="password" matInput formControlName="confirmPass" placeholder="Confirm your password">
+      <mat-error *ngIf="confirmPass.errors && confirmPass.errors['required']">Please confirm your password</mat-error>
+      <mat-error *ngIf="confirmPass.errors && confirmPass.errors['matchingValues']">The passwords do not match
+      </mat-error>
+    </mat-form-field>
+    <div class="mt3 mr3 flex justify-around">
+      <button mat-flat-button type="submit" color="primary" [disabled]="registrationForm.invalid">Register</button>
+      <button mat-flat-button (click)="router.navigate(['/'])">Cancel</button>
+    </div>
   </form>
 </div>

@@ -8,6 +8,8 @@
     <mat-menu #userMenu="matMenu" xPosition="before">
       <button *ngIf="!(userService.isRegistered$ | async)" mat-menu-item
         (click)="router.navigate(['user', 'register'])">Register</button>
+      <button *ngIf="(userService.isRegistered$ | async)" mat-menu-item
+        (click)="router.navigate(['user', 'profile'])">Profile</button>
     </mat-menu>
   </div>
 </header>
