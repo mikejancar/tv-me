@@ -31,9 +31,8 @@
     },
     {
       "type": "chrome",
-      "request": "attach",
-      "name": "Attach to client",
-      "port": 9222,
+      "request": "launch",
+      "name": "Launch client",
       "url": "http://localhost:4200",
       "webRoot": "${workspaceFolder}/client/tv-me"
     }
