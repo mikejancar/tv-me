@@ -81,7 +81,9 @@ exports.handler = async (event) => {
 
     return {
       'statusCode': 200,
-      'body': `User creation successful`
+      'body': JSON.stringify({
+        message: 'User creation successful'
+      })
     };
   }
 };
