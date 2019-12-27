@@ -1,0 +1,47 @@
+{
+  "loginUser": {
+    "resource": "/login",
+    "path": "/login",
+    "httpMethod": "POST",
+    "headers": null,
+    "multiValueHeaders": null,
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+      "resourceId": "lgqbwm",
+      "resourcePath": "/login",
+      "httpMethod": "POST",
+      "extendedRequestId": "FYOAvFIIIAMFhwQ=",
+      "requestTime": "27/Dec/2019:19:36:23 +0000",
+      "path": "/login",
+      "accountId": "887063001842",
+      "protocol": "HTTP/1.1",
+      "stage": "test-invoke-stage",
+      "domainPrefix": "testPrefix",
+      "requestTimeEpoch": 1577475383805,
+      "requestId": "8c342e0f-5139-429c-9914-0d20c67f8cb2",
+      "identity": {
+        "cognitoIdentityPoolId": null,
+        "cognitoIdentityId": null,
+        "apiKey": "test-invoke-api-key",
+        "principalOrgId": null,
+        "cognitoAuthenticationType": null,
+        "userArn": "arn:aws:iam::887063001842:root",
+        "apiKeyId": "test-invoke-api-key-id",
+        "userAgent": "aws-internal/3 aws-sdk-java/1.11.690 Linux/4.9.184-0.1.ac.235.83.329.metal1.x86_64 OpenJDK_64-Bit_Server_VM/25.232-b09 java/1.8.0_232 vendor/Oracle_Corporation",
+        "accountId": "887063001842",
+        "caller": "887063001842",
+        "sourceIp": "test-invoke-source-ip",
+        "accessKey": "ASIA45CITHLZKAFBBA3Z",
+        "cognitoAuthenticationProvider": null,
+        "user": "887063001842"
+      },
+      "domainName": "testPrefix.testDomainName",
+      "apiId": "cjl8z77aqi"
+    },
+    "body": "{\n    \"username\": \"test@test.com\",\n    \"password\": \"blowmeagain\"\n}",
+    "isBase64Encoded": false
+  }
+}
