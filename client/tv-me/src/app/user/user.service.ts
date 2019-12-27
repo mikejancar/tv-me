@@ -11,6 +11,10 @@ interface UserLogin {
   expiresAt: number;
 }
 
+interface LoginResponse {
+  validated: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -49,6 +53,20 @@ export class UserService {
         }
         console.log(error);
         return of(error);
+      })
+    );
+  }
+
+  login(username: string, password: string): Observable<boolean> {
+    return this.http.post(`${environment.tvmeApiUrl}/login`, { username, password }).pipe(
+      map((result: LoginResponse) => {
+        this.saveUserLogin(username);
+        return result.validated;
+      }),
+      catchError((error: any) => {
+        this.isLoggedIn$.next(false);
+        console.log(error);
+        return of(false);
       })
     );
   }

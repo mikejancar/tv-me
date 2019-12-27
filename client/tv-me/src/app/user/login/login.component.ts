@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-
-
+import { tap } from 'rxjs/operators';
 
 import { UserService } from '../user.service';
 
@@ -28,14 +27,14 @@ export class LoginComponent {
   ) { }
 
   onSubmit(): void {
-    // this.userService.registerNewUser(this.username.value, this.password.value).pipe(
-    //   map((wasSuccessful: boolean) => {
-    //     if (wasSuccessful) {
-    //       this.router.navigate(['user', 'profile'], { queryParams: { registered: true } });
-    //     } else {
-    //       this.snackBar.open('Registration failed. Please try again later');
-    //     }
-    //   })
-    // ).subscribe();
+    this.userService.login(this.username.value, this.password.value).pipe(
+      tap((wasSuccessful: boolean) => {
+        if (wasSuccessful) {
+          this.router.navigate(['/']);
+        } else {
+          this.snackBar.open('Login failed. Please try again later', 'Ok', { duration: 5000 });
+        }
+      })
+    ).subscribe();
   }
 }
