@@ -7,6 +7,9 @@ exports.handler = async (event) => {
   let response = {};
 
   switch (event.httpMethod) {
+    case 'GET':
+      response = await getUser();
+      break;
     case 'POST':
       response = await addNewUser();
       break;
@@ -24,11 +27,55 @@ exports.handler = async (event) => {
     }
   };
 
+  async function retrieveUserRecord(username) {
+    const params = {
+      TableName: userTable,
+      KeyConditionExpression: 'emailAddress = :email',
+      ExpressionAttributeValues: {
+        ':email': `${username}`
+      },
+      ProjectionExpression: [
+        'emailAddress'
+      ]
+    };
+
+    try {
+      return await dynamo.query(params).promise();
+    } catch (error) {
+      console.log(`Error querying users table: ${error}`);
+      return {
+        'statusCode': 500,
+        'body': `Error querying users table: ${error}`
+      };
+    }
+  }
+
+  async function getUser() {
+    if (event.pathParameters && event.pathParameters.username) {
+      const userQuery = await retrieveUserRecord(event.pathParameters.username);
+      if (userQuery.Count === 0) {
+        return {
+          'statusCode': 404,
+          'body': 'Username not found'
+        };
+      }
+      return {
+        'statusCode': 200,
+        'body': JSON.stringify(userQuery.Items[0])
+      };
+    } else {
+      return {
+        'statusCode': 400,
+        'body': 'Invalid request'
+      };
+    }
+  }
+
   async function addNewUser() {
     if (!event.body) {
       return {
         'statusCode': 400,
-        'body': 'Invalid request content'
+        'body': 'Invalid request'
       };
     }
 
@@ -40,16 +87,8 @@ exports.handler = async (event) => {
       };
     }
 
-    const params = {
-      TableName: userTable,
-      KeyConditionExpression: 'emailAddress = :email',
-      ExpressionAttributeValues: {
-        ':email': `${newUser.emailAddress}`
-      }
-    };
-
     try {
-      const userQuery = await dynamo.query(params).promise();
+      const userQuery = await retrieveUserRecord(newUser.emailAddress);
       if (userQuery.Count > 0) {
         return {
           'statusCode': 400,
@@ -63,7 +102,6 @@ exports.handler = async (event) => {
         'body': `Error querying users table: ${error}`
       };
     }
-
 
     try {
       const params = {
