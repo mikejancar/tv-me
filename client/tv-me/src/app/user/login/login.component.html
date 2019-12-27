@@ -1,0 +1,23 @@
+<div class="ml3 ml4-l pt2 pt3-l">
+  <div class="mat-h1">Login</div>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="w-90">
+      <input matInput formControlName="username" placeholder="Enter your username">
+      <mat-error *ngIf="username.errors && username.errors['required']">Username is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-90">
+      <input type="password" matInput formControlName="password" placeholder="Enter your password">
+      <mat-error *ngIf="password.errors && password.errors['required']">Password is required</mat-error>
+    </mat-form-field>
+    <div class="mt3 mr3 flex justify-around">
+      <button mat-flat-button type="submit" color="primary" [disabled]="loginForm.invalid">Login</button>
+      <button mat-flat-button (click)="router.navigate(['/'])">Cancel</button>
+    </div>
+  </form>
+  <div>
+    <div class="mat-h2">Need to register?</div>
+    <div>
+      <button mat-flat-button color="primary" (click)="router.navigate(['user', 'register'])">Register</button>
+    </div>
+  </div>
+</div>
