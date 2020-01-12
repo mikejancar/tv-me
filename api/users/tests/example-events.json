@@ -1,23 +1,23 @@
 {
   "getUser": {
-    "resource": "/users/{username}",
-    "path": "/users/mikejancar@gmail.com",
+    "resource": "/users/{id}",
+    "path": "/users/2c0baa9f-52e4-5f2d-94d8-a031ef7075f1",
     "httpMethod": "GET",
     "headers": null,
     "multiValueHeaders": null,
     "queryStringParameters": null,
     "multiValueQueryStringParameters": null,
     "pathParameters": {
-      "username": "mikejancar@gmail.com"
+      "id": "2c0baa9f-52e4-5f2d-94d8-a031ef7075f1"
     },
     "stageVariables": null,
     "requestContext": {
       "resourceId": "a3l7oa",
-      "resourcePath": "/users/{username}",
+      "resourcePath": "/users/{id}",
       "httpMethod": "GET",
       "extendedRequestId": "FVmNaFlVIAMFqZQ=",
       "requestTime": "27/Dec/2019:00:30:52 +0000",
-      "path": "/users/{username}",
+      "path": "/users/{id}",
       "accountId": "887063001842",
       "protocol": "HTTP/1.1",
       "stage": "test-invoke-stage",
@@ -88,7 +88,54 @@
       "domainName": "testPrefix.testDomainName",
       "apiId": "cjl8z77aqi"
     },
-    "body": "{\n    \"emailAddress\": \"test@test.com\",\n    \"password\": \"blowmeagain\"\n}",
+    "body": "{\n    \"username\": \"test@test.com\",\n    \"password\": \"blowmeagain\"\n}",
+    "isBase64Encoded": false
+  },
+  "patchUpdateUser": {
+    "resource": "/users/{id}",
+    "path": "/users/2c0baa9f-52e4-5f2d-94d8-a031ef7075f1",
+    "httpMethod": "PUT",
+    "headers": null,
+    "multiValueHeaders": null,
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": {
+      "id": "2c0baa9f-52e4-5f2d-94d8-a031ef7075f1"
+    },
+    "stageVariables": null,
+    "requestContext": {
+      "resourceId": "a3l7oa",
+      "resourcePath": "/users/{id}",
+      "httpMethod": "PUT",
+      "extendedRequestId": "F2rG7G1_IAMFSVA=",
+      "requestTime": "06/Jan/2020:01:22:13 +0000",
+      "path": "/users/{id}",
+      "accountId": "887063001842",
+      "protocol": "HTTP/1.1",
+      "stage": "test-invoke-stage",
+      "domainPrefix": "testPrefix",
+      "requestTimeEpoch": 1578273733832,
+      "requestId": "530a4feb-5015-4f97-bd62-8117f1204df5",
+      "identity": {
+        "cognitoIdentityPoolId": null,
+        "cognitoIdentityId": null,
+        "apiKey": "test-invoke-api-key",
+        "principalOrgId": null,
+        "cognitoAuthenticationType": null,
+        "userArn": "arn:aws:iam::887063001842:root",
+        "apiKeyId": "test-invoke-api-key-id",
+        "userAgent": "aws-internal/3 aws-sdk-java/1.11.690 Linux/4.9.184-0.1.ac.235.83.329.metal1.x86_64 OpenJDK_64-Bit_Server_VM/25.232-b09 java/1.8.0_232 vendor/Oracle_Corporation",
+        "accountId": "887063001842",
+        "caller": "887063001842",
+        "sourceIp": "test-invoke-source-ip",
+        "accessKey": "ASIA45CITHLZE766RC4H",
+        "cognitoAuthenticationProvider": null,
+        "user": "887063001842"
+      },
+      "domainName": "testPrefix.testDomainName",
+      "apiId": "cjl8z77aqi"
+    },
+    "body": "{\n    \"favoriteSeries\": [\n        {\n            \"id\": 1,\n            \"name\": \"Homeland\"\n        }\n    ]\n}",
     "isBase64Encoded": false
   }
 }
