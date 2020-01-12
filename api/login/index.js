@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
-const userTable = 'tvme-users';
+const loginTable = 'tvme-logins';
 
 exports.handler = async (event) => {
   let response = {};
@@ -24,11 +24,11 @@ exports.handler = async (event) => {
     }
   };
 
-  async function retrieveUserRecord(username) {
+  async function retrieveUserLogin(username) {
     const params = {
-      TableName: userTable,
+      TableName: loginTable,
       Key: {
-        emailAddress: `${username}`
+        username: `${username}`
       }
     };
 
@@ -38,7 +38,7 @@ exports.handler = async (event) => {
       console.log(`Error retrieving user record: ${error}`);
       return {
         'statusCode': 500,
-        'body': `Error retrieving user record: ${error}`
+        'body': `Error retrieving user record`
       };
     }
   }
@@ -60,7 +60,7 @@ exports.handler = async (event) => {
     }
 
     try {
-      const userQuery = await retrieveUserRecord(credentials.username);
+      const userQuery = await retrieveUserLogin(credentials.username);
       if (!userQuery.Item) {
         console.log(`Username not found: ${credentials.username}`);
         return {
@@ -86,7 +86,7 @@ exports.handler = async (event) => {
       console.log(`Error validating user: ${error}`);
       return {
         'statusCode': 500,
-        'body': `Error validating user: ${error}`
+        'body': `Error validating user`
       };
     }
   }
