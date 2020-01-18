@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk');
 const uuid = require('uuid/v5');
+const sharedFunc = require('./opt/index');
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
 const loginTable = 'tvme-logins';
@@ -47,27 +48,6 @@ exports.handler = async (event) => {
       return {
         'statusCode': 500,
         'body': `Error getting user record`
-      };
-    }
-  }
-
-  async function queryForUser(username) {
-    const params = {
-      TableName: userTable,
-      IndexName: 'index-username',
-      KeyConditionExpression: 'username = :username',
-      ExpressionAttributeValues: {
-        ':username': `${username}`
-      }
-    };
-
-    try {
-      return await dynamo.query(params).promise();
-    } catch (error) {
-      console.log(`Error querying users table: ${error}`);
-      return {
-        'statusCode': 500,
-        'body': `Error querying users table`
       };
     }
   }
@@ -124,7 +104,7 @@ exports.handler = async (event) => {
       };
     }
 
-    const userQuery = await queryForUser(newUser.username);
+    const userQuery = await sharedFunc.queryForUser(newUser.username);
     if (userQuery.Count > 0) {
       return {
         'statusCode': 400,

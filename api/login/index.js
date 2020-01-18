@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+const sharedFunc = require('./opt/index');
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
 const loginTable = 'tvme-logins';
@@ -77,10 +78,19 @@ exports.handler = async (event) => {
           'body': 'Invalid username or password'
         };
       }
+      const user = await sharedFunc.queryForUser(credentials.username);
+      if (!user.Items || user.Count === 0) {
+        console.log(`Error retrieving user record for ${credentials.username}`);
+        return {
+          'statusCode': 500,
+          'body': 'Internal server error'
+        };
+      }
+
       console.log(`${credentials.username} logged in at ${new Date()}`);
       return {
         'statusCode': 200,
-        'body': JSON.stringify({ validated: true })
+        'body': JSON.stringify(user.Items[0])
       };
     } catch (error) {
       console.log(`Error validating user: ${error}`);

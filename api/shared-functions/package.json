@@ -1,0 +1,17 @@
+{
+  "name": "tv-me-shared-functions",
+  "version": "1.0.0",
+  "description": "Shared functions used across the TV Me API",
+  "main": "index.js",
+  "scripts": {
+    "clean": "7z d shared-functions.zip *",
+    "deploy": "npm run clean & npm run zip & npm run publish",
+    "publish": "aws2 lambda publish-layer-version --layer-name tv-me-shared-functions --zip-file fileb://shared-functions.zip --compatible-runtimes nodejs12.x",
+    "zip": "7z a shared-functions.zip index.js & 7z a shared-functions.zip node_modules\\"
+  },
+  "author": "Mike Jancar",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.606.0"
+  }
+}
