@@ -5,7 +5,14 @@
     <mat-card-subtitle>{{result.network}}</mat-card-subtitle>
     <mat-card-content>{{result.overview}}</mat-card-content>
     <mat-card-actions>
-      <button mat-button (click)="router.navigate(['/series', result.id])" color="primary">Details</button>
+      <div class="flex justify-between">
+        <button mat-flat-button (click)="router.navigate(['/series', result.id])" color="primary">Details</button>
+        <span class="w-25 flex justify-end items-center">
+          <mat-spinner *ngIf="(saveStatus$ | async).inProcess" class="mr2" [diameter]="30" color="primary">
+          </mat-spinner>
+          <button mat-flat-button (click)="saveSeries(result)" color="primary">Save</button>
+        </span>
+      </div>
     </mat-card-actions>
   </mat-card>
 </div>

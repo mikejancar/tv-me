@@ -1,25 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 
 import { environment } from '@tvme-env/environment';
-import { User } from '@tvme/models';
+import { FavoriteSeries, SearchResult, User } from '@tvme/models';
 
 interface UserLogin {
+  id: string;
   username: string;
   expiresAt: number;
-}
-
-interface LoginResponse {
-  validated: boolean;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  user$: BehaviorSubject<User> = new BehaviorSubject<User>({ username: '' });
+  user$: BehaviorSubject<User> = new BehaviorSubject<User>({ id: '', username: '', favoriteSeries: [] });
   isRegistered$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -27,11 +24,12 @@ export class UserService {
 
   checkLoginStatus(): void {
     const now = new Date();
-    const userLoginStored = localStorage.getItem('user');
+    const userLoginStored = localStorage.getItem('userLogin');
 
     if (userLoginStored) {
       const userLogin: UserLogin = JSON.parse(userLoginStored);
       if (userLogin.expiresAt > now.getDate()) {
+        this.getUser(userLogin.id);
         this.isLoggedIn$.next(true);
       } else {
         this.isLoggedIn$.next(false);
@@ -41,11 +39,10 @@ export class UserService {
     }
   }
 
-  getUser(username: string): void {
-    this.http.get(`${environment.tvmeApiUrl}/users/${username}`).pipe(
+  getUser(id: string): void {
+    this.http.get(`${environment.tvmeApiUrl}/users/${id}`).pipe(
       map((user: User) => {
-        this.isRegistered$.next(true);
-        this.user$.next(user);
+        this.setUser(user);
       }),
       catchError((error: any) => {
         if (error.status === 404) {
@@ -54,14 +51,14 @@ export class UserService {
         console.log(error);
         return of(error);
       })
-    );
+    ).subscribe();
   }
 
   login(username: string, password: string): Observable<boolean> {
     return this.http.post(`${environment.tvmeApiUrl}/login`, { username, password }).pipe(
-      map((result: LoginResponse) => {
-        this.saveUserLogin(username);
-        return result.validated;
+      map((user: User) => {
+        this.setUser(user);
+        return true;
       }),
       catchError((error: any) => {
         this.isLoggedIn$.next(false);
@@ -71,11 +68,11 @@ export class UserService {
     );
   }
 
-  registerNewUser(emailAddress: string, password: string): Observable<boolean> {
-    return this.http.post(`${environment.tvmeApiUrl}/users`, { emailAddress, password }).pipe(
-      map(() => {
-        this.isRegistered$.next(true);
-        this.saveUserLogin(emailAddress);
+  registerNewUser(username: string, password: string): Observable<boolean> {
+    return this.http.post(`${environment.tvmeApiUrl}/users`, { username, password }).pipe(
+      map((user: User) => {
+        this.saveUserLogin(user);
+        this.setUser(user);
         return true;
       }),
       catchError((error: any) => {
@@ -85,17 +82,52 @@ export class UserService {
     );
   }
 
-  removeUserLogin(): void {
+  saveUserSeries(series: SearchResult): Observable<boolean> {
+    return this.user$.pipe(
+      take(1),
+      switchMap((user: User) =>
+        this.http.patch(`${environment.tvmeApiUrl}/users/${user.id}`, { favoriteSeries: this.updateFavoriteSeries(user, series) }).pipe(
+          map((updatedUser: User) => {
+            this.user$.next(updatedUser);
+            return true;
+          }),
+          catchError((error: any) => {
+            console.log(error);
+            return of(false);
+          })
+        )
+      )
+    );
+  }
+
+  private updateFavoriteSeries(user: User, series: SearchResult): FavoriteSeries[] {
+    if (user.favoriteSeries.some((existingSeries: FavoriteSeries) => existingSeries.id === series.id)) {
+      return user.favoriteSeries;
+    }
+    const newFavorite: FavoriteSeries = { id: series.id, seriesName: series.seriesName };
+    return [
+      ...user.favoriteSeries || [],
+      newFavorite
+    ];
+  }
+
+  private removeUserLogin(): void {
     localStorage.removeItem('user');
   }
 
-  saveUserLogin(username: string): void {
+  private saveUserLogin(user: User): void {
     const now = new Date();
-    const userData: UserLogin = {
-      username,
+    const userLogin: UserLogin = {
+      id: user.id,
+      username: user.username,
       expiresAt: now.setDate(now.getDate() + 7)
     };
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('userLogin', JSON.stringify(userLogin));
     this.isLoggedIn$.next(true);
+  }
+
+  private setUser(user: User): void {
+    this.isRegistered$.next(true);
+    this.user$.next(user);
   }
 }

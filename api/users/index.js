@@ -154,7 +154,8 @@ exports.handler = async (event) => {
     return {
       'statusCode': 200,
       'body': JSON.stringify({
-        id: newUserId
+        id: newUserId,
+        username: newUser.username
       })
     };
   }
@@ -204,9 +205,7 @@ exports.handler = async (event) => {
 
     return {
       'statusCode': 200,
-      'body': JSON.stringify({
-        message: `User updated successfully`
-      })
+      'body': JSON.stringify(updatedUser)
     };
   }
 };
