@@ -6,6 +6,14 @@ html, body {
   width: 100%;
 }
 
+html {
+  background-color: black;
+  background-image: url('assets/img/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;

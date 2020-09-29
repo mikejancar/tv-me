@@ -1,6 +1,6 @@
 <div class="flex flex-column items-center">
   <mat-spinner *ngIf="searchInProgress"></mat-spinner>
-  <mat-card class="w-80 w-60-l mb2" *ngFor="let result of searchResult">
+  <mat-card class="w-80 w-60-l mv3 mv4-l" *ngFor="let result of searchResult">
     <mat-card-title>{{result.seriesName}}</mat-card-title>
     <mat-card-subtitle>{{result.network}}</mat-card-subtitle>
     <mat-card-content>{{result.overview}}</mat-card-content>
